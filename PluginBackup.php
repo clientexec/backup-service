@@ -11,67 +11,67 @@ class PluginBackup extends ServicePlugin
     function getVariables()
     {
         $variables = array(
-            /*T*/'Plugin Name'/*/T*/   => array(
+            lang('Plugin Name')   => array(
                 'type'          => 'hidden',
-                'description'   => /*T*/''/*/T*/,
-                'value'         => /*T*/'CE Database Backup'/*/T*/,
+                'description'   => '',
+                'value'         => lang('CE Database Backup'),
             ),
-            /*T*/'Enabled'/*/T*/       => array(
+            lang('Enabled')       => array(
                 'type'          => 'yesno',
-                'description'   => /*T*/'Generates a file with an SQL dump of your ClientExec database on a periodic basis, and delivers it to any of the locations set below.'/*/T*/,
+                'description'   => lang('Generates a file with an SQL dump of your ClientExec database on a periodic basis, and delivers it to any of the locations set below.'),
                 'value'         => '0',
             ),
-            /*T*/'Compress file with gzip'/*/T*/ => array(
+            lang('Compress file with gzip') => array(
                 'type'          => 'yesno',
-                'description'   => /*T*/'Only possible if you have the zlib extension in your PHP installation.'/*/T*/,
+                'description'   => lang('Only possible if you have the zlib extension in your PHP installation.'),
                 'value'         => '0',
                 'enableIf'      => 'return extension_loaded(\'zlib\');',
             ),
-            /*T*/'Encryption password'/*/T*/ => array(
+            lang('Encryption password') => array(
                 'type'          => 'text',
-                'description'   => /*T*/'Enter a password if you wish to encrypt the file, or else leave empty. Only possible if you have the mcrypt extension in your PHP installation'/*/T*/,
+                'description'   => lang('Enter a password if you wish to encrypt the file, or else leave empty. Only possible if you have the mcrypt extension in your PHP installation'),
                 'value'         => '',
                 'enableIf'      => 'return extension_loaded(\'mcrypt\');',
             ),
-            /*T*/'Deliver to remote FTP or SFTP account'/*/T*/ => array(
+            lang('Deliver to remote FTP or SFTP account') => array(
                 'type'          => 'text',
-                'description'   => /*T*/'To send the file to a remote FTP or SFTP account enter the host and your credentials in the format <b>ftp://username:password@host.com/subdirectory</b> for FTP<br>or<br><b>sftp://username:password@host.com/subdirectory</b> for SFTP<br>SFTP is only possible if you have the ssh2 extension in your PHP installation'/*/T*/,
+                'description'   => lang('To send the file to a remote FTP or SFTP account enter the host and your credentials in the format <b>ftp://username:password@host.com/subdirectory</b> for FTP<br>or<br><b>sftp://username:password@host.com/subdirectory</b> for SFTP<br>SFTP is only possible if you have the ssh2 extension in your PHP installation'),
                 'value'         => '',
             ),
-            /*T*/'Deliver to local directory'/*/T*/ => array(
+            lang('Deliver to local directory') => array(
                 'type'          => 'text',
-                'description'   => /*T*/'To save the file in a local directory accessible and writable by the web server, enter it\'s full path here.'/*/T*/,
+                'description'   => lang('To save the file in a local directory accessible and writable by the web server, enter it\'s full path here.'),
                 'value'         => '',
             ),
-            /*T*/'Deliver to E-mail address'/*/T*/ => array(
+            lang('Deliver to E-mail address') => array(
                 'type'          => 'textarea',
-                'description'   => /*T*/'To send the file as an E-mail attachment, enter the address here.'/*/T*/,
+                'description'   => lang('To send the file as an E-mail attachment, enter the address here.'),
                 'value'         => '',
             ),
-            /*T*/'Run schedule - Minute'/*/T*/  => array(
+            lang('Run schedule - Minute')  => array(
                 'type'          => 'text',
-                'description'   => /*T*/'Enter number, range, list or steps'/*/T*/,
+                'description'   => lang('Enter number, range, list or steps'),
                 'value'         => '30',
                 'helpid'        => '8',
             ),
-            /*T*/'Run schedule - Hour'/*/T*/  => array(
+            lang('Run schedule - Hour')  => array(
                 'type'          => 'text',
-                'description'   => /*T*/'Enter number, range, list or steps'/*/T*/,
+                'description'   => lang('Enter number, range, list or steps'),
                 'value'         => '01',
             ),
-            /*T*/'Run schedule - Day'/*/T*/  => array(
+            lang('Run schedule - Day')  => array(
                 'type'          => 'text',
-                'description'   => /*T*/'Enter number, range, list or steps'/*/T*/,
+                'description'   => lang('Enter number, range, list or steps'),
                 'value'         => '*',
             ),
-            /*T*/'Run schedule - Month'/*/T*/  => array(
+            lang('Run schedule - Month')  => array(
                 'type'          => 'text',
-                'description'   => /*T*/'Enter number, range, list or steps'/*/T*/,
+                'description'   => lang('Enter number, range, list or steps'),
                 'value'         => '*',
             ),
-            /*T*/'Run schedule - Day of the week'/*/T*/  => array(
+            lang('Run schedule - Day of the week')  => array(
                 'type'          => 'text',
-                'description'   => /*T*/'Enter number in range 0-6 (0 is Sunday) or a 3 letter shortcut (e.g. sun)'/*/T*/,
+                'description'   => lang('Enter number in range 0-6 (0 is Sunday) or a 3 letter shortcut (e.g. sun)'),
                 'value'         => '*',
             ),
         );
