@@ -88,9 +88,7 @@ class PluginBackup extends ServicePlugin
         $configuration = Zend_Registry::get('configuration');
         $fileName = "backup_" . $configuration['application']['dbSchema'] . "_" . date('Y_m_d_H_i') . ".sql";
 
-        // use references to save memory
-        $sql = '';
-        $this->_getSQL($sql);
+        $sql = $this->getSQL($this->db);
         if ($this->settings->get('plugin_backup_Compress file with gzip')) {
             $fileName .= '.gz';
             if ($message = $this->_gzip($sql, $fileName)) {
@@ -156,12 +154,11 @@ class PluginBackup extends ServicePlugin
     }
 
 
-    // PRIVATE FUNCTIONS
-    function _getSQL(&$sql)
+    static public function getSQL($db)
     {
-        $sql .= file_get_contents(dirname(__FILE__).'/../../../library/setup/sql/schema.sql');
+        $sql = file_get_contents(__DIR__.'/../../../library/setup/sql/schema.sql');
 
-        $modulesDir = realpath(dirname(__FILE__) . '/../../../modules');
+        $modulesDir = realpath(__DIR__ . '/../../../modules');
     	$dir = dir($modulesDir);
     	while (false !== $entry = $dir->read()) {
             if (is_dir($modulesDir.'/'.$entry) && $entry != '.' && $entry != '..' && $entry != 'CVS') {
@@ -172,10 +169,10 @@ class PluginBackup extends ServicePlugin
                 }
             }
     	}
-        $result1 = $this->db->query('SHOW TABLES');
+        $result1 = $db->query('SHOW TABLES');
         while ($row1 = $result1->fetch()) {
             $sql .= "--\n-- Dumping data for table `{$row1[0]}`\n--\n\n";
-            $result2 = $this->db->query("SELECT * FROM {$row1[0]}");
+            $result2 = $db->query("SELECT * FROM {$row1[0]}");
 			$i=0;
 			$field_names= '';
 			while ($i < $result2->getNumFields()) {
@@ -186,7 +183,7 @@ class PluginBackup extends ServicePlugin
 			$field_names = rtrim($field_names,', ');
             while ($row2 = $result2->fetch(MYSQL_NUM)) {
                 for ($i = 0; $i < count($row2); $i++) {
-                    $row2[$i] = $this->db->escape_string($row2[$i]);
+                    $row2[$i] = $db->escape_string($row2[$i]);
                 }
                 $values = implode("', '", $row2);
                 $values = "'$values'";
@@ -196,6 +193,7 @@ class PluginBackup extends ServicePlugin
             $sql .= "\n\n";
         }
         $sql = preg_replace('/ENGINE(\s)*=(\s)*\[MyISAM\]/i', 'ENGINE=MyISAM', $sql);
+        return $sql;
     }
 
     function _gzip(&$sql, $fileName)
