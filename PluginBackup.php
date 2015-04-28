@@ -169,6 +169,9 @@ class PluginBackup extends ServicePlugin
                 }
             }
     	}
+
+        $sql .= "\n\n";
+
         $result1 = $db->query('SHOW TABLES');
         while ($row1 = $result1->fetch()) {
             $sql .= "--\n-- Dumping data for table `{$row1[0]}`\n--\n\n";
