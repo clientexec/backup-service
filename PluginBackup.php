@@ -184,7 +184,7 @@ class PluginBackup extends ServicePlugin
 				$i++;
 			}
 			$field_names = rtrim($field_names,', ');
-            while ($row2 = $result2->fetch(MYSQL_NUM)) {
+            while ($row2 = $result2->fetch(MYSQLI_NUM)) {
                 for ($i = 0; $i < count($row2); $i++) {
                     $row2[$i] = $db->escape_string($row2[$i]);
                 }
